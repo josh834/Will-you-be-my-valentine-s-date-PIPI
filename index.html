@@ -22,7 +22,6 @@
             overflow: hidden;
         }
 
-        /* Floating Elements (Hearts and Photos) */
         .floating {
             position: fixed;
             pointer-events: none;
@@ -32,8 +31,8 @@
         }
 
         .floating-img {
-            width: 70px;
-            height: 70px;
+            width: 75px;
+            height: 75px;
             object-fit: cover;
             border-radius: 50%;
             border: 3px solid white;
@@ -60,12 +59,10 @@
         img.main-gif { width: 100%; max-width: 220px; border-radius: 20px; margin-bottom: 15px; }
         h1 { color: var(--dark-pink); font-size: 24px; margin: 10px 0; }
 
-        /* Timer */
         #timer { display: flex; justify-content: center; gap: 8px; margin: 15px 0; font-size: 12px; color: #555; }
         .time-box { background: #ffe0e6; padding: 8px; border-radius: 10px; min-width: 45px; }
         .time-box span { display: block; font-size: 18px; font-weight: bold; color: var(--dark-pink); }
 
-        /* Buttons */
         .btn-container { height: 70px; display: flex; justify-content: center; align-items: center; gap: 15px; position: relative; margin-top: 10px; }
         button { padding: 12px 25px; font-size: 16px; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; }
         #yesBtn { background: #06d6a0; color: white; animation: pulse 1.5s infinite; z-index: 11; }
@@ -92,7 +89,7 @@
 
     <div id="card">
         <div id="ui-content">
-             <img class="main-gif" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3d3lhdDducHdseHJ1cTVuZXA0MXVvdWE2ZWxia2dtbTUyODJ2cTloaCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/In0Lpu4FVivjISX9HT/giphy.gif">
+            <img class="main-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIycXByZndidm13ZWZxeDdwZ3p2eDhwZ3p2eDhwZ3p2eDhwZ3p2JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNUMo/giphy.gif" alt="Cute Cat">
             <h1>Will you be my Valentine?</h1>
 
             <div id="timer">
@@ -122,7 +119,6 @@
             "d38acdb8-2a3c-463c-8257-39371495b23f.jfif"
         ];
 
-        // 2. Floating Logic
         function createFloating(type) {
             const el = document.createElement(type === 'heart' ? 'div' : 'img');
             el.classList.add('floating');
@@ -144,7 +140,6 @@
         setInterval(() => createFloating('heart'), 400);
         setInterval(() => createFloating('photo'), 2500);
 
-        // 3. Timer Logic
         const targetDate = new Date("Feb 14, 2026 00:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -155,7 +150,6 @@
             document.getElementById("secs").innerText = Math.floor((diff % (1000 * 60)) / 1000);
         }, 1000);
 
-        // 4. Runaway Button
         function moveButton() {
             const btn = document.getElementById('noBtn');
             btn.style.position = 'fixed';
@@ -163,7 +157,6 @@
             btn.style.top = Math.random() * (window.innerHeight - btn.offsetHeight) + 'px';
         }
 
-        // 5. Success Celebration
         function celebrate() {
             const music = document.getElementById("bg-music");
             music.play();
