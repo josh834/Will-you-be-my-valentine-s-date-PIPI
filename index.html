@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For my Pipi Pupu ❤️</title>
+    <style>
+        :root {
+            --pink: #ff85a2;
+            --dark-pink: #ef476f;
+            --bg-color: #fff0f3;
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--bg-color);
+            font-family: 'Arial Rounded MT Bold', 'Helvetica', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Floating Elements (Hearts and Photos) */
+        .floating {
+            position: fixed;
+            pointer-events: none;
+            animation: floatUp linear infinite;
+            z-index: 1;
+            opacity: 0.9;
+        }
+
+        .floating-img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+        }
+
+        #card {
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(239, 71, 111, 0.2);
+            text-align: center;
+            z-index: 10;
+            width: 85%;
+            max-width: 400px;
+            border: 5px solid #fff;
+        }
+
+        img.main-gif { width: 100%; max-width: 220px; border-radius: 20px; margin-bottom: 15px; }
+        h1 { color: var(--dark-pink); font-size: 24px; margin: 10px 0; }
+
+        /* Timer */
+        #timer { display: flex; justify-content: center; gap: 8px; margin: 15px 0; font-size: 12px; color: #555; }
+        .time-box { background: #ffe0e6; padding: 8px; border-radius: 10px; min-width: 45px; }
+        .time-box span { display: block; font-size: 18px; font-weight: bold; color: var(--dark-pink); }
+
+        /* Buttons */
+        .btn-container { height: 70px; display: flex; justify-content: center; align-items: center; gap: 15px; position: relative; margin-top: 10px; }
+        button { padding: 12px 25px; font-size: 16px; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; }
+        #yesBtn { background: #06d6a0; color: white; animation: pulse 1.5s infinite; z-index: 11; }
+        #noBtn { background: var(--dark-pink); color: white; z-index: 11; }
+
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+        #secret-message {
+            display: none;
+            background: #fff5f7;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px dashed var(--pink);
+            margin-top: 20px;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            color: #444;
+            line-height: 1.5;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="card">
+        <div id="ui-content">
+            <img class="main-gif" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3Zm9tajQ1aDN4cG43ZXF2cHd5YzR3NWowOGM0bHF2OXlncWt6aWkxeSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/y93x7gLXTO5dnSWCEI/giphy.gif">
+            <h1>Will you be my Valentine?</h1>
+
+            <div id="timer">
+                <div class="time-box"><span id="days">0</span>days</div>
+                <div class="time-box"><span id="hours">0</span>hrs</div>
+                <div class="time-box"><span id="mins">0</span>mins</div>
+                <div class="time-box"><span id="secs">0</span>secs</div>
+            </div>
+
+            <div class="btn-container">
+                <button id="yesBtn" onclick="celebrate()">YES!</button>
+                <button id="noBtn" onmouseover="moveButton()">No</button>
+            </div>
+        </div>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="yung_kai_-_yung_kai_-_blue_Official_Music_Video_(mp3.pm).mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // 1. YOUR PICTURES
+        const myPictures = [
+            "26948768-ce2f-4741-a46e-ff563ffde06e.jfif", 
+            "2c197daa-0b2f-4440-95ab-2b7bfcfde93d.jfif", 
+            "ca3f09d5-6803-4a3d-a4f4-a522cdd62d8a.jfif",
+            "d38acdb8-2a3c-463c-8257-39371495b23f.jfif"
+        ];
+
+        // 2. Floating Logic
+        function createFloating(type) {
+            const el = document.createElement(type === 'heart' ? 'div' : 'img');
+            el.classList.add('floating');
+            
+            if (type === 'heart') {
+                el.innerHTML = '❤️';
+                el.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            } else {
+                el.src = myPictures[Math.floor(Math.random() * myPictures.length)];
+                el.classList.add('floating-img');
+            }
+
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 7000);
+        }
+
+        setInterval(() => createFloating('heart'), 400);
+        setInterval(() => createFloating('photo'), 2500);
+
+        // 3. Timer Logic
+        const targetDate = new Date("Feb 14, 2026 00:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("mins").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("secs").innerText = Math.floor((diff % (1000 * 60)) / 1000);
+        }, 1000);
+
+        // 4. Runaway Button
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            btn.style.position = 'fixed';
+            btn.style.left = Math.random() * (window.innerWidth - btn.offsetWidth) + 'px';
+            btn.style.top = Math.random() * (window.innerHeight - btn.offsetHeight) + 'px';
+        }
+
+        // 5. Success Celebration
+        function celebrate() {
+            const music = document.getElementById("bg-music");
+            music.play();
+
+            const card = document.getElementById('card');
+            card.innerHTML = `
+                <img class="main-gif" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Zic3RscXh6YTZtNmR2MmsyN3Z6YTZmNmR2MmsyN3Z6YTZmNmR2JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbxxvDUQM/giphy.gif">
+                <h1 style="color: #ef476f;">YIPPIEEE MWEHEHEHEHEHE! ❤️</h1>
+                <div id="secret-message" style="display: block;">
+                    <p><strong>To my one and only pipi pupu,</strong></p>
+                    <p>I wanted to make something special but this is the only thing I can do right now because my budget is tight huhuhu im sorry but I hope you like it!</p>
+                    <p>I love youuu so sosooo much I hope to start the day with you and end it with a smile together. Thank you for being you my kind and pretty babi. I can't wait to spend the 14th with you!</p>
+                    <p style="text-align: right; font-weight: bold;">— Your one and only popo pupu hihihihi</p>
+                </div>
+            `;
+
+            for(let i=0; i<50; i++) {
+                setTimeout(() => createFloating('heart'), i * 100);
+            }
+        }
+    </script>
+</body>
+</html>
