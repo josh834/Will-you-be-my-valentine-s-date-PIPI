@@ -22,26 +22,34 @@
             overflow: hidden;
         }
 
+        /* Floating Elements */
         .floating {
             position: fixed;
             pointer-events: none;
             animation: floatUp linear infinite;
             z-index: 1;
-            opacity: 0.9;
         }
 
+        /* Large & Fully Opaque Photos */
         .floating-img {
-            width: 75px;
-            height: 75px;
+            width: 150px; /* Made much larger */
+            height: 150px; /* Made much larger */
             object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 20px; /* Changed to rounded square for better visibility */
+            border: 5px solid white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            opacity: 1 !important; /* Fully solid/visible */
+        }
+
+        /* Floating Hearts */
+        .floating-heart {
+            opacity: 0.8;
+            color: var(--pink);
         }
 
         @keyframes floatUp {
             0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+            100% { transform: translateY(-30vh) rotate(360deg); opacity: 0; }
         }
 
         #card {
@@ -111,7 +119,6 @@
     </audio>
 
     <script>
-        // 1. YOUR PICTURES
         const myPictures = [
             "26948768-ce2f-4741-a46e-ff563ffde06e.jfif", 
             "2c197daa-0b2f-4440-95ab-2b7bfcfde93d.jfif", 
@@ -125,20 +132,21 @@
             
             if (type === 'heart') {
                 el.innerHTML = '❤️';
+                el.classList.add('floating-heart');
                 el.style.fontSize = (Math.random() * 20 + 15) + 'px';
             } else {
                 el.src = myPictures[Math.floor(Math.random() * myPictures.length)];
                 el.classList.add('floating-img');
             }
 
-            el.style.left = Math.random() * 100 + 'vw';
-            el.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            el.style.left = Math.random() * 90 + 'vw'; /* Adjusted so large pics stay on screen */
+            el.style.animationDuration = (Math.random() * 4 + 5) + 's';
             document.body.appendChild(el);
-            setTimeout(() => el.remove(), 7000);
+            setTimeout(() => el.remove(), 9000);
         }
 
-        setInterval(() => createFloating('heart'), 400);
-        setInterval(() => createFloating('photo'), 2500);
+        setInterval(() => createFloating('heart'), 500);
+        setInterval(() => createFloating('photo'), 3500); /* Slightly slower for large photos */
 
         const targetDate = new Date("Feb 14, 2026 00:00:00").getTime();
         setInterval(() => {
@@ -163,20 +171,6 @@
 
             const card = document.getElementById('card');
             card.innerHTML = `
-                <img class="main-gif" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Zic3RscXh6YTZtNmR2MmsyN3Z6YTZmNmR2MmsyN3Z6YTZmNmR2JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbxxvDUQM/giphy.gif">
-                <h1 style="color: #ef476f;">YIPPIEEE MWEHEHEHEHEHE! ❤️</h1>
-                <div id="secret-message" style="display: block;">
-                    <p><strong>To my one and only pipi pupu,</strong></p>
-                    <p>I wanted to make something special but this is the only thing I can do right now because my budget is tight huhuhu im sorry but I hope you like it!</p>
-                    <p>I love youuu so sosooo much I hope to start the day with you and end it with a smile together. Thank you for being you my kind and pretty babi. I can't wait to spend the 14th with you!</p>
-                    <p style="text-align: right; font-weight: bold;">— Your one and only popo pupu hihihihi</p>
-                </div>
-            `;
-
-            for(let i=0; i<50; i++) {
-                setTimeout(() => createFloating('heart'), i * 100);
-            }
-        }
-    </script>
+                <img class="main-gif" src="
 </body>
 </html>
