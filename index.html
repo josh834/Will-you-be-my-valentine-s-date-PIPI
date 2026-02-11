@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For my Pipi Pupu ❤️</title>
+    <title>A Special Message For You ❤️</title>
     <style>
         :root {
             --pink: #ff85a2;
@@ -19,37 +19,21 @@
             min-height: 100vh;
             background-color: var(--bg-color);
             font-family: 'Arial Rounded MT Bold', 'Helvetica', sans-serif;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
-        /* Floating Elements */
-        .floating {
+        .heart {
             position: fixed;
+            color: var(--pink);
+            font-size: 20px;
             pointer-events: none;
-            animation: floatUp linear infinite;
+            animation: float 5s linear infinite;
             z-index: 1;
         }
 
-        /* Large & Fully Opaque Photos */
-        .floating-img {
-            width: 150px; /* Made much larger */
-            height: 150px; /* Made much larger */
-            object-fit: cover;
-            border-radius: 20px; /* Changed to rounded square for better visibility */
-            border: 5px solid white;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            opacity: 1 !important; /* Fully solid/visible */
-        }
-
-        /* Floating Hearts */
-        .floating-heart {
-            opacity: 0.8;
-            color: var(--pink);
-        }
-
-        @keyframes floatUp {
+        @keyframes float {
             0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-30vh) rotate(360deg); opacity: 0; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
         #card {
@@ -59,24 +43,35 @@
             box-shadow: 0 15px 35px rgba(239, 71, 111, 0.2);
             text-align: center;
             z-index: 10;
-            width: 85%;
-            max-width: 400px;
+            width: 90%;
+            max-width: 450px;
             border: 5px solid #fff;
         }
 
-        img.main-gif { width: 100%; max-width: 220px; border-radius: 20px; margin-bottom: 15px; }
-        h1 { color: var(--dark-pink); font-size: 24px; margin: 10px 0; }
+        img { 
+            width: 230px; 
+            height: auto;
+            border-radius: 20px; 
+            margin-bottom: 15px; 
+        }
 
-        #timer { display: flex; justify-content: center; gap: 8px; margin: 15px 0; font-size: 12px; color: #555; }
-        .time-box { background: #ffe0e6; padding: 8px; border-radius: 10px; min-width: 45px; }
-        .time-box span { display: block; font-size: 18px; font-weight: bold; color: var(--dark-pink); }
+        h1 { color: var(--dark-pink); font-size: 24px; }
 
-        .btn-container { height: 70px; display: flex; justify-content: center; align-items: center; gap: 15px; position: relative; margin-top: 10px; }
+        #timer { display: flex; justify-content: center; gap: 10px; margin: 20px 0; font-size: 14px; color: #555; }
+        .time-box { background: #ffe0e6; padding: 10px; border-radius: 10px; min-width: 50px; }
+        .time-box span { display: block; font-size: 20px; font-weight: bold; color: var(--dark-pink); }
+
+        .btn-container { height: 80px; display: flex; justify-content: center; align-items: center; gap: 15px; position: relative; }
         button { padding: 12px 25px; font-size: 16px; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; }
-        #yesBtn { background: #06d6a0; color: white; animation: pulse 1.5s infinite; z-index: 11; }
-        #noBtn { background: var(--dark-pink); color: white; z-index: 11; }
+        
+        #yesBtn { background: #06d6a0; color: white; animation: pulse 1.5s infinite; }
+        #noBtn { background: var(--dark-pink); color: white; }
 
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
 
         #secret-message {
             display: none;
@@ -88,16 +83,19 @@
             font-family: 'Georgia', serif;
             font-style: italic;
             color: #444;
-            line-height: 1.5;
-            text-align: left;
+            line-height: 1.6;
+            animation: slideUp 1s ease-out;
         }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <div id="card">
-        <div id="ui-content">
-            <img class="main-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIycXByZndidm13ZWZxeDdwZ3p2eDhwZ3p2eDhwZ3p2eDhwZ3p2JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNUMo/giphy.gif" alt="Cute Cat">
+        <div id="main-ui">
+            <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3d3lhdDducHdseHJ1cTVuZXA0MXVvdWE2ZWxia2dtbTUyODJ2cTloaCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/In0Lpu4FVivjISX9HT/giphy.gif">
+            
             <h1>Will you be my Valentine?</h1>
 
             <div id="timer">
@@ -119,34 +117,16 @@
     </audio>
 
     <script>
-        const myPictures = [
-            "26948768-ce2f-4741-a46e-ff563ffde06e.jfif", 
-            "2c197daa-0b2f-4440-95ab-2b7bfcfde93d.jfif", 
-            "ca3f09d5-6803-4a3d-a4f4-a522cdd62d8a.jfif",
-            "d38acdb8-2a3c-463c-8257-39371495b23f.jfif"
-        ];
-
-        function createFloating(type) {
-            const el = document.createElement(type === 'heart' ? 'div' : 'img');
-            el.classList.add('floating');
-            
-            if (type === 'heart') {
-                el.innerHTML = '❤️';
-                el.classList.add('floating-heart');
-                el.style.fontSize = (Math.random() * 20 + 15) + 'px';
-            } else {
-                el.src = myPictures[Math.floor(Math.random() * myPictures.length)];
-                el.classList.add('floating-img');
-            }
-
-            el.style.left = Math.random() * 90 + 'vw'; /* Adjusted so large pics stay on screen */
-            el.style.animationDuration = (Math.random() * 4 + 5) + 's';
-            document.body.appendChild(el);
-            setTimeout(() => el.remove(), 9000);
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
         }
-
-        setInterval(() => createFloating('heart'), 500);
-        setInterval(() => createFloating('photo'), 3500); /* Slightly slower for large photos */
+        setInterval(createHeart, 400);
 
         const targetDate = new Date("Feb 14, 2026 00:00:00").getTime();
         setInterval(() => {
@@ -171,6 +151,17 @@
 
             const card = document.getElementById('card');
             card.innerHTML = `
-                <img class="main-gif" src="
+                <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2Zic3RscXh6YTZtNmR2MmsyN3Z6YTZmNmR2MmsyN3Z6YTZmNmR2JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbxxvDUQM/giphy.gif" alt="Happy Cat">
+                <h1 style="color: #ef476f;">YIPPIEEE MWEHEHEHEHEHE! ❤️</h1>
+                <div id="secret-message" style="display: block;">
+                    <p><strong>To my one and only pipi pupu,</strong></p>
+                    <p>I wanted to make something special but this is the only thing I can do right now because my budget is tight huhuhu im sorry but I hope you like it!</p>
+                    <p>I love youuu so sosooo much. I hope to start the day with you and end it with a smile together. Thank you for being you my kind and pretty babi. I can't wait to spend the 14th with you!</p>
+                    <p style="text-align: right;"><strong>— Your one and only popo pupu hihihihi</strong></p>
+                </div>
+            `;
+            for(let i=0; i<40; i++) setTimeout(createHeart, i * 100);
+        }
+    </script>
 </body>
 </html>
